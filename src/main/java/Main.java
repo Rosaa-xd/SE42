@@ -1,6 +1,10 @@
+import dataAccessLayer.PersistenceManager;
+import dataAccessLayer.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import javax.persistence.EntityManager;
 
 import static spark.Spark.*;
 
@@ -9,6 +13,19 @@ import static spark.Spark.*;
  */
 public class Main {
     public static void main(String[] args) {
-        get("/hello", ((request, response) -> "Hello World"));
+        User user = new User();
+        user.setFirstName("Java")
+                .setLastName("Test")
+                .setPassword("password")
+                .setEmail("email")
+                .setGoldCard(false)
+                .setScore(0);
+
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
+        em.close();
+        PersistenceManager.INSTANCE.close();
     }
 }
