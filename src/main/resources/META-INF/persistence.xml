@@ -1,0 +1,26 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+    <persistence-unit name="persistenceUnitName" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <!-- Database Driver -->
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <!-- Database URL -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-54-75-225-143.eu-west-1.compute.amazonaws.com/d3srtpmknpf27d?sslmode=require" />
+            <!-- Database User -->
+            <property name="javax.persistence.jdbc.user" value="ipscdgajryyfrs" />
+            <!-- Database Password -->
+            <property name="javax.persistence.jdbc.password" value="cc5a55912ce18f339c918730c579dfc110430b91e0426a06b96447450b79da90" />
+
+            <!-- Database Dialect -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+
+            <!-- Show SQL in console -->
+            <property name="hibernate.show_sql" value="true" />
+            <!-- Show SQL in SQL format -->
+            <property name="hibernate.format_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
