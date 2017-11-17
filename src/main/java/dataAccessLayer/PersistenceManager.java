@@ -11,7 +11,7 @@ public enum PersistenceManager {
     private EntityManagerFactory emFactory;
 
     private PersistenceManager() {
-        emFactory = Persistence.createEntityManagerFactory("d3srtpmknpf27d?sslmode=require");
+        emFactory = Persistence.createEntityManagerFactory("feedMe");
     }
 
     public EntityManager getEntityManager() {
