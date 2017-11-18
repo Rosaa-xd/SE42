@@ -7,16 +7,29 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table (name="`User`")
 public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name = "id")
     private Integer id;
 
+    @Column (name = "`firstName`")
     private String firstName;
+
+    @Column (name = "`lastName`")
     private String lastName;
+
+    @Column (name = "`password`")
     private String password;
+
+    @Column (name = "`email`")
     private String email;
+
+    @Column (name = "`goldCard`")
     private Boolean goldCard;
+
+    @Column (name = "`score`")
     private Integer score;
 
     public Integer getId() {
