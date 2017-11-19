@@ -20,9 +20,7 @@ public class Main {
         user.setFirstName("Java")
                 .setLastName("Test")
                 .setPassword("password")
-                .setEmail("email")
-                .setGoldCard(false)
-                .setScore(0);
+                .setEmail("email3");
 
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         em.getTransaction().begin();
