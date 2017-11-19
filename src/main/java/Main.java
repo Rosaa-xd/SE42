@@ -1,11 +1,5 @@
 import dataAccessLayer.PersistenceManager;
 import dataAccessLayer.User;
-import org.hibernate.Session;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 import javax.persistence.EntityManager;
 

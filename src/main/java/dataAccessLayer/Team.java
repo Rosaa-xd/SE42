@@ -22,4 +22,39 @@ public class Team {
 
     @ManyToMany (mappedBy = "teams")
     private Set<User> teamMembers = new HashSet<>();
+
+    public Team() {}
+
+    public Team(User teamLead) {
+        this.teamLead = teamLead;
+    }
+
+    public Team(User teamLead, Set<User> teamMembers) {
+        this.teamLead = teamLead;
+        this.teamMembers = teamMembers;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getTeamLead() {
+        return teamLead;
+    }
+
+    public void setTeamLead(User teamLead) {
+        this.teamLead = teamLead;
+    }
+
+    public Set<User> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(Set<User> teamMembers) {
+        this.teamMembers = teamMembers;
+    }
 }

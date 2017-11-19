@@ -55,6 +55,27 @@ public class User {
     )
     Set<Team> teams = new HashSet<>();
 
+    public User() {}
+
+    public User(String firstName, String lastName, String password, String email, Boolean goldCard, Integer score) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.goldCard = goldCard;
+        this.score = score;
+    }
+
+    public User(String firstName, String lastName, String password, String email, Boolean goldCard, Integer score, Set<Goal> goals, Set<Team> teams) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.goldCard = goldCard;
+        this.score = score;
+        this.goals = goals;
+        this.teams = teams;
+    }
 
     public Integer getId() {
         return id;
@@ -117,5 +138,21 @@ public class User {
     public User setScore(Integer score) {
         this.score = score;
         return this;
+    }
+
+    public Set<Goal> getGoals() {
+        return goals;
+    }
+
+    public void setGoals(Set<Goal> goals) {
+        this.goals = goals;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 }

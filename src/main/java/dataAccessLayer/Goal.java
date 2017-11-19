@@ -23,4 +23,39 @@ public class Goal {
 
     @ManyToMany (mappedBy = "goals")
     private Set<User> users = new HashSet<>();
+
+    public Goal() {}
+
+    public Goal(String goalName) {
+        this.goalName = goalName;
+    }
+
+    public Goal(String goalName, Set<User> users) {
+        this.goalName = goalName;
+        this.users = users;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getGoalName() {
+        return goalName;
+    }
+
+    public void setGoalName(String goalName) {
+        this.goalName = goalName;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }
