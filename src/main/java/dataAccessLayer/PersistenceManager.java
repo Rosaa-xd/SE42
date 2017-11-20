@@ -18,6 +18,20 @@ public enum PersistenceManager {
         return emFactory.createEntityManager();
     }
 
+    public boolean create(EntityManager entityManager, Object obj) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(obj);
+            entityManager.getTransaction().commit();
+            return true;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+    }
+
     public void close() {
         emFactory.close();
     }
