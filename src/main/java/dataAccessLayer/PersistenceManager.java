@@ -1,6 +1,7 @@
 package dataAccessLayer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * Created by Shadowphoenix on 14-11-2017
@@ -29,7 +30,21 @@ public enum PersistenceManager {
             ex.printStackTrace();
             return false;
         }
+    }
 
+    public boolean create(EntityManager entityManager, ArrayList<Object> objects) {
+        try {
+            entityManager.getTransaction().begin();
+            for (Object object : objects) {
+                entityManager.persist(object);
+            }
+            entityManager.getTransaction().commit();
+            return true;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     public void close() {
