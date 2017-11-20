@@ -67,6 +67,3 @@ public class Question {
     }
 }
 
-enum QuestionType {
-    OPEN, CLOSED
-}

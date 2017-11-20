@@ -31,11 +31,11 @@ public class Feedback {
 
     @Column (name = "top",
         nullable = false)
-    private Boolean top;
+    private Boolean top = false;
 
     @Column (name = "tip",
         nullable = false)
-    private Boolean tip;
+    private Boolean tip = false;
 
     @Column (name = "comment")
     private String comment;

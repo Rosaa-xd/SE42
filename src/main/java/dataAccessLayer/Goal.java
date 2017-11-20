@@ -58,4 +58,8 @@ public class Goal {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table (name = "Team")
+@Table (name = "`Team`")
 public class Team {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -56,5 +56,9 @@ public class Team {
 
     public void setTeamMembers(Set<User> teamMembers) {
         this.teamMembers = teamMembers;
+    }
+
+    public void addTeamMember(User teamMember) {
+        teamMembers.add(teamMember);
     }
 }
