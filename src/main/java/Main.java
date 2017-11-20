@@ -8,10 +8,10 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) {
-
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
     }
 
-    private static void testInsert() {
+    private static void testInsert(EntityManager em) {
         User teamLead = new User();
         teamLead.setFirstName("TeamLead")
                 .setLastName("Test")
@@ -47,7 +47,6 @@ public class Main {
         objects.add(question);
         objects.add(feedbackTeamLead);
 
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         PersistenceManager.INSTANCE.create(em, objects);
         em.close();
         PersistenceManager.INSTANCE.close();
