@@ -50,8 +50,8 @@ public class User {
     @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (
             name = "`UserTeam`",
-            joinColumns = {@JoinColumn (name = "`team_id`")},
-            inverseJoinColumns = {@JoinColumn (name = "`user_id`")}
+            joinColumns = {@JoinColumn (name = "`user_id`")},
+            inverseJoinColumns = {@JoinColumn (name = "`team_id`")}
     )
     Set<Team> teams = new HashSet<>();
 
@@ -154,5 +154,15 @@ public class User {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
+    }
+
+    public void addTeam(Team team) {
+        teams.add(team);
+        team.addTeamMember(this);
+    }
+
+    public void addGoal(Goal goal) {
+        goals.add(goal);
+        goal.addUser(this);
     }
 }

@@ -11,19 +11,19 @@ public class Main {
         teamLead.setFirstName("TeamLead")
                 .setLastName("Test")
                 .setPassword("password")
-                .setEmail("email10");
+                .setEmail("email14");
         User teamMember = new User();
         teamMember.setFirstName("TeamMember")
                   .setLastName("Test")
                   .setPassword("password")
-                  .setEmail("email11");
+                  .setEmail("email15");
         Goal goal = new Goal();
         goal.setGoalName("Samenwerken");
-        goal.addUser(teamLead);
-        goal.addUser(teamMember);
+        teamLead.addGoal(goal);
+        teamMember.addGoal(goal);
         Team team = new Team();
         team.setTeamLead(teamLead);
-        team.addTeamMember(teamMember);
+        teamMember.addTeam(team);
         Question question = new Question();
         question.setGoal(goal);
         question.setQuestion("Hoe vind je de samenwerking met mij?");
