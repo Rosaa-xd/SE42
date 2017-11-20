@@ -155,4 +155,17 @@ public class User {
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
+
+    public boolean createUser(EntityManager entityManager) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(this);
+            entityManager.getTransaction().commit();
+            return true;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }

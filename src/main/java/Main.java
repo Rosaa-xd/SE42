@@ -14,12 +14,10 @@ public class Main {
         user.setFirstName("Java")
                 .setLastName("Test")
                 .setPassword("password")
-                .setEmail("email3");
+                .setEmail("email4");
 
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(user);
-        em.getTransaction().commit();
+        user.createUser(em);
         em.close();
         PersistenceManager.INSTANCE.close();
     }
