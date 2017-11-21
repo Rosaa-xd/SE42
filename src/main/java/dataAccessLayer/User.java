@@ -1,8 +1,11 @@
 package dataAccessLayer;
 
+import org.jboss.logging.Param;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,6 +14,8 @@ import java.util.Set;
 
 @Entity
 @Table (name = "`User`")
+@NamedQuery(name = "User.findUserOnName",
+query = "SELECT u FROM User u WHERE u.firstName LIKE :name or u.lastName LIKE :name")
 public class User {
 
     @Id
@@ -58,13 +63,13 @@ public class User {
     Set<Team> teams = new HashSet<>();
 
     @OneToMany (mappedBy = "sender")
-    ArrayList<Feedback> sendFeedback = new ArrayList<>();
+    List<Feedback> sendFeedback = new ArrayList<>();
 
     @OneToMany (mappedBy = "receiver")
-    ArrayList<Feedback> receivedFeedback = new ArrayList<>();
+    List<Feedback> receivedFeedback = new ArrayList<>();
 
     @OneToMany (mappedBy = "teamLead")
-    ArrayList<Team> teamsLeading = new ArrayList<>();
+    List<Team> teamsLeading = new ArrayList<>();
 
     public User() {}
 
@@ -167,7 +172,7 @@ public class User {
         this.teams = teams;
     }
 
-    public ArrayList<Feedback> getSendFeedback() {
+    public List<Feedback> getSendFeedback() {
         return sendFeedback;
     }
 
@@ -175,7 +180,7 @@ public class User {
         this.sendFeedback = sendFeedback;
     }
 
-    public ArrayList<Feedback> getReceivedFeedback() {
+    public List<Feedback> getReceivedFeedback() {
         return receivedFeedback;
     }
 
