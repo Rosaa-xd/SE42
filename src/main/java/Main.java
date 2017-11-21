@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        testUpdate(em);
     }
 
     private static void testInsert(EntityManager em) {
