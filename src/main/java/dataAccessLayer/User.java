@@ -14,8 +14,11 @@ import java.util.Set;
 
 @Entity
 @Table (name = "`User`")
-@NamedQuery(name = "User.findUserOnName",
-query = "SELECT u FROM User u WHERE u.firstName LIKE :name or u.lastName LIKE :name")
+@NamedQueries({
+        @NamedQuery(name = "User.findUserOnName",
+                query = "SELECT u FROM User u WHERE u.firstName LIKE :name or u.lastName LIKE :name")
+})
+
 public class User {
 
     @Id

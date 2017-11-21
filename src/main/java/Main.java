@@ -63,6 +63,8 @@ public class Main {
         em.close();
     }
 
+
+
     private static void testQuerySearchUser(EntityManager em){
         String name = "%o%";
         Query q = em.createNamedQuery("User.findUserOnName", User.class).setParameter("name", name);
