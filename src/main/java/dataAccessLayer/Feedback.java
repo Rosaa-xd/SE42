@@ -66,6 +66,7 @@ public class Feedback {
 
     public void setSender(User sender) {
         this.sender = sender;
+        sender.addSendFeedback(this);
     }
 
     public User getReceiver() {
@@ -74,6 +75,7 @@ public class Feedback {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+        receiver.addReceivedFeedback(this);
     }
 
     public Question getQuestion() {

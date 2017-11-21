@@ -1,6 +1,7 @@
 package dataAccessLayer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,6 +56,15 @@ public class User {
             inverseJoinColumns = {@JoinColumn (name = "`team_id`")}
     )
     Set<Team> teams = new HashSet<>();
+
+    @OneToMany (mappedBy = "sender")
+    ArrayList<Feedback> sendFeedback = new ArrayList<>();
+
+    @OneToMany (mappedBy = "receiver")
+    ArrayList<Feedback> receivedFeedback = new ArrayList<>();
+
+    @OneToMany (mappedBy = "teamLead")
+    ArrayList<Team> teamsLeading = new ArrayList<>();
 
     public User() {}
 
@@ -157,6 +167,22 @@ public class User {
         this.teams = teams;
     }
 
+    public ArrayList<Feedback> getSendFeedback() {
+        return sendFeedback;
+    }
+
+    public void setSendFeedback(ArrayList<Feedback> sendFeedback) {
+        this.sendFeedback = sendFeedback;
+    }
+
+    public ArrayList<Feedback> getReceivedFeedback() {
+        return receivedFeedback;
+    }
+
+    public void setReceivedFeedback(ArrayList<Feedback> receivedFeedback) {
+        this.receivedFeedback = receivedFeedback;
+    }
+
     public void addTeam(Team team) {
         teams.add(team);
         team.addTeamMember(this);
@@ -165,6 +191,18 @@ public class User {
     public void addGoal(Goal goal) {
         goals.add(goal);
         goal.addUser(this);
+    }
+
+    public void addSendFeedback(Feedback feedback) {
+        sendFeedback.add(feedback);
+    }
+
+    public void addReceivedFeedback(Feedback feedback) {
+        receivedFeedback.add(feedback);
+    }
+
+    public void addTeamLeading(Team team) {
+        teamsLeading.add(team);
     }
 
     public void setFirstName(EntityManager em, String firstName) {

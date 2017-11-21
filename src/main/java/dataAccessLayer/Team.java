@@ -48,6 +48,7 @@ public class Team {
 
     public void setTeamLead(User teamLead) {
         this.teamLead = teamLead;
+        teamLead.addTeamLeading(this);
     }
 
     public Set<User> getTeamMembers() {
