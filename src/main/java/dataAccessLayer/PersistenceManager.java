@@ -47,6 +47,34 @@ public enum PersistenceManager {
         }
     }
 
+    public boolean delete(EntityManager entityManager, Object obj) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(obj);
+            entityManager.getTransaction().commit();
+            return true;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delete(EntityManager entityManager, ArrayList<Object> objects) {
+        try {
+            entityManager.getTransaction().begin();
+            for (Object object : objects) {
+                entityManager.remove(object);
+            }
+            entityManager.getTransaction().commit();
+            return true;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
     public void close() {
         emFactory.close();
     }

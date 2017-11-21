@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        testUpdate(em);
     }
 
     private static void testInsert(EntityManager em) {
@@ -50,5 +51,19 @@ public class Main {
         PersistenceManager.INSTANCE.create(em, objects);
         em.close();
         PersistenceManager.INSTANCE.close();
+    }
+
+    private static void testUpdate(EntityManager em) {
+        User user = em.find(User.class, 30);
+        user.setEmail(em, "UpdateAwesomeMethod@shadowphoenix.nl");
+        em.close();
+    }
+
+    private static void testRemove(EntityManager em) {
+        User user = em.find(User.class, 4);
+        em.getTransaction().begin();
+        em.remove(user);
+        em.getTransaction().commit();
+        em.close();
     }
 }

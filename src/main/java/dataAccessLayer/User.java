@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table (name = "`User`")
 public class User {
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "id")
@@ -164,5 +165,17 @@ public class User {
     public void addGoal(Goal goal) {
         goals.add(goal);
         goal.addUser(this);
+    }
+
+    public void setFirstName(EntityManager em, String firstName) {
+        em.getTransaction().begin();
+        setFirstName(firstName);
+        em.getTransaction().commit();
+    }
+
+    public void setEmail(EntityManager em, String email) {
+        em.getTransaction().begin();
+        setEmail(email);
+        em.getTransaction().commit();
     }
 }
