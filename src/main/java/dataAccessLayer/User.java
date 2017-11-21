@@ -58,13 +58,13 @@ public class User {
     Set<Team> teams = new HashSet<>();
 
     @OneToMany (mappedBy = "sender")
-    ArrayList<Feedback> sendFeedback = new ArrayList<>();
+    Set<Feedback> sendFeedback = new HashSet<>();
 
     @OneToMany (mappedBy = "receiver")
-    ArrayList<Feedback> receivedFeedback = new ArrayList<>();
+    Set<Feedback> receivedFeedback = new HashSet<>();
 
     @OneToMany (mappedBy = "teamLead")
-    ArrayList<Team> teamsLeading = new ArrayList<>();
+    Set<Team> teamsLeading = new HashSet<>();
 
     public User() {}
 
@@ -167,19 +167,19 @@ public class User {
         this.teams = teams;
     }
 
-    public ArrayList<Feedback> getSendFeedback() {
+    public Set<Feedback> getSendFeedback() {
         return sendFeedback;
     }
 
-    public void setSendFeedback(ArrayList<Feedback> sendFeedback) {
+    public void setSendFeedback(Set<Feedback> sendFeedback) {
         this.sendFeedback = sendFeedback;
     }
 
-    public ArrayList<Feedback> getReceivedFeedback() {
+    public Set<Feedback> getReceivedFeedback() {
         return receivedFeedback;
     }
 
-    public void setReceivedFeedback(ArrayList<Feedback> receivedFeedback) {
+    public void setReceivedFeedback(Set<Feedback> receivedFeedback) {
         this.receivedFeedback = receivedFeedback;
     }
 
