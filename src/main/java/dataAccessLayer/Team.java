@@ -10,6 +10,10 @@ import java.util.Set;
 
 @Entity
 @Table (name = "`Team`")
+@NamedQueries({
+        @NamedQuery(name = "Team.getAllMembers",
+                query = "SELECT t FROM Team t")
+})
 public class Team {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
