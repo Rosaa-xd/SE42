@@ -33,33 +33,33 @@ import java.util.Set;
         //return the latest feedback ordered by date
         //checked -- no data attribute in feedback
         @NamedQuery(name = "User.getLatestFeedback",
-                query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id"),
+                query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id WHERE u.id = :id"),
                 //query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id ORDER BY f.data DESC"),
 
         //return get all goals from the user
         //checked
         @NamedQuery(name = "User.getGoals",
-                query = "SELECT u.goals FROM User u"),
+                query = "SELECT u.goals FROM User u WHERE u.id = :id"),
 
         //return return all the feedback given to the user
         //checked
         @NamedQuery(name = "User.getAllGivenFeedback",
-        query = "SELECT f FROM User u INNER JOIN Feedback f ON u.id = f.sender.id  WHERE u.id = :id"),
+            query = "SELECT f FROM Feedback f INNER JOIN User u ON u.id = f.sender.id  WHERE u.id = :id"),
 
         //return all the feedback the user has received
         //checked
         @NamedQuery(name = "User.getAllReceivedFeedback",
-                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id"),
-
+                query = "SELECT f FROM Feedback f INNER JOIN User u ON u.id = f.receiver.id WHERE u.id = :id"),
 
         //return the users that have given the most feedback
         //checked
         @NamedQuery(name = "User.getMostGivenFeedback",
-                query = "SELECT f FROM User u INNER JOIN Feedback f ON u.id = f.sender.id GROUP BY f.sender.id ORDER BY COUNT(*) DESC"),
+                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.sender.id GROUP BY u.id ORDER BY COUNT(*) DESC"),
 
-        //return
+        //return the users thar have been given the most feedback
+        //checked
         @NamedQuery(name = "User.getMostReceivedFeedback",
-                query = "SELECT f FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id GROUP BY f.receiver.id ORDER BY COUNT(*) DESC")
+                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id GROUP BY u.id ORDER BY COUNT(*) DESC")
 
 })
 
