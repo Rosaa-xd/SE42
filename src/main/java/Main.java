@@ -1,7 +1,10 @@
 import dataAccessLayer.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
+import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Shadowphoenix on 14-11-2017.
@@ -55,6 +58,19 @@ public class Main {
     private static void testUpdate(EntityManager em) {
         User user = em.find(User.class, 30);
         user.setEmail(em, "UpdateAwesomeMethod@shadowphoenix.nl");
+        em.close();
+    }
+
+
+
+    private static void testQuerySearchUser(EntityManager em){
+        String name = "%o%";
+        Query q = em.createNamedQuery("User.findUserOnName", User.class).setParameter("name", name);
+        List<User> result = q.getResultList();
+        System.out.println("amount of people that have names with " + name +": " + result.size());
+        for(User u : result ){
+            System.out.println("person: " + u.getFirstName() + " " + u.getLastName());
+        }
         em.close();
     }
 

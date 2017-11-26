@@ -1,8 +1,11 @@
 package dataAccessLayer;
 
+import org.jboss.logging.Param;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,6 +14,11 @@ import java.util.Set;
 
 @Entity
 @Table (name = "`User`")
+@NamedQueries({
+        @NamedQuery(name = "User.findUserOnName",
+                query = "SELECT u FROM User u WHERE u.firstName LIKE :name or u.lastName LIKE :name")
+})
+
 public class User {
 
     @Id
@@ -167,7 +175,7 @@ public class User {
         this.teams = teams;
     }
 
-    public Set<Feedback> getSendFeedback() {
+    public List<Feedback> getSendFeedback() {
         return sendFeedback;
     }
 
