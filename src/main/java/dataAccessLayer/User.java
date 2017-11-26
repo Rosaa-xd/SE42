@@ -36,10 +36,16 @@ import java.util.Set;
                 query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id WHERE u.id = :id"),
                 //query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id ORDER BY f.data DESC"),
 
-        //return get all goals from the user
+        //return get all goals/improvementpoints from the user
         //checked
         @NamedQuery(name = "User.getGoals",
                 query = "SELECT u.goals FROM User u WHERE u.id = :id"),
+
+        //return all question from the user
+        //checked
+        @NamedQuery(name = "User.getQuestions",
+                query = "SELECT q FROM Question q INNER JOIN Feedback f ON f.question.id = q.id INNER JOIN User u ON f.receiver.id = u.id"),
+                //query = "SELECT q FROM Question q INNER JOIN Feedback f ON f.question.id = q.id INNER JOIN User u ON f.receiver.id = u.id where u.id = :id")
 
         //return return all the feedback given to the user
         //checked

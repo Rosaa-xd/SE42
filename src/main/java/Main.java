@@ -22,10 +22,10 @@ public class Main {
 
     private static void testCurrentQuery(EntityManager em) {
         int id = 5;
-        Query q = em.createNamedQuery("User.getAllGivenFeedback", Feedback.class).setParameter("id", id);
-        List<Feedback> result = q.getResultList();
-        for(Feedback f : result){
-            System.out.println(f.getId());
+        Query q = em.createNamedQuery("User.getQuestions", Question.class);
+        List<Question> result = q.getResultList();
+        for(Question g : result){
+            System.out.println(g.getId() + ' ' + g.getQuestion());
         }
 
         em.close();
