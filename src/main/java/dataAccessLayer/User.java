@@ -15,8 +15,52 @@ import java.util.Set;
 @Entity
 @Table (name = "`User`")
 @NamedQueries({
+        //return users that contain the same characters as the string that is given
+        //checked
         @NamedQuery(name = "User.findUserOnName",
-                query = "SELECT u FROM User u WHERE u.firstName LIKE :name or u.lastName LIKE :name")
+                query = "SELECT u FROM User u WHERE u.firstName LIKE :name or u.lastName LIKE :name"),
+
+        //return the teams where the user is part of
+        //checked
+        @NamedQuery(name = "User.getAllUserTeam",
+                query = "SELECT u.teams FROM User u WHERE u.id = :id"),
+
+        //return the top score , return the (5 if limit does work) users with the highest score
+        //checked -- LIMIT doesnt work
+        @NamedQuery(name = "User.getTopScore",
+                query = "SELECT u  FROM User u ORDER BY u.score DESC"),
+
+        //return the latest feedback ordered by date
+        //checked -- no data attribute in feedback
+        @NamedQuery(name = "User.getLatestFeedback",
+                query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id WHERE u.id = :id"),
+                //query = "SELECT f FROM User u INNER JOIN Feedback f on u.id = f.receiver.id ORDER BY f.data DESC"),
+
+        //return get all goals from the user
+        //checked
+        @NamedQuery(name = "User.getGoals",
+                query = "SELECT u.goals FROM User u WHERE u.id = :id"),
+
+        //return return all the feedback given to the user
+        //checked
+        @NamedQuery(name = "User.getAllGivenFeedback",
+            query = "SELECT f FROM Feedback f INNER JOIN User u ON u.id = f.sender.id  WHERE u.id = :id"),
+
+        //return all the feedback the user has received
+        //checked
+        @NamedQuery(name = "User.getAllReceivedFeedback",
+                query = "SELECT f FROM Feedback f INNER JOIN User u ON u.id = f.receiver.id WHERE u.id = :id"),
+
+        //return the users that have given the most feedback
+        //checked
+        @NamedQuery(name = "User.getMostGivenFeedback",
+                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.sender.id GROUP BY u.id ORDER BY COUNT(*) DESC"),
+
+        //return the users thar have been given the most feedback
+        //checked
+        @NamedQuery(name = "User.getMostReceivedFeedback",
+                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id GROUP BY u.id ORDER BY COUNT(*) DESC")
+
 })
 
 public class User {
