@@ -1,6 +1,9 @@
 package dataAccessLayer;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 /**
  * Created by Shadowphoenix on 18/11/2017
@@ -40,6 +43,9 @@ public class Feedback {
     @Column (name = "comment")
     private String comment;
 
+    @Column (name = "created_at")
+    private java.sql.Timestamp createdAt;
+
     public Feedback() {}
 
     public Feedback(User sender, User receiver, Question question, Boolean anonymous, Boolean top, Boolean tip, String comment) {
@@ -50,6 +56,7 @@ public class Feedback {
         this.top = top;
         this.tip = tip;
         this.comment = comment;
+        this.createdAt = new java.sql.Timestamp(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().getEpochSecond());
     }
 
     public Integer getId() {
@@ -116,5 +123,13 @@ public class Feedback {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime ldt) {
+        this.createdAt = new java.sql.Timestamp(ldt.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond());
     }
 }

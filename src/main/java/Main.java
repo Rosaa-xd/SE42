@@ -3,6 +3,7 @@ import dataAccessLayer.*;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,8 @@ public class Main {
         //testInsert(em);
         //testQuerySearchUser(em);
         //testQueryTeam(em);
-        testCurrentQuery(em);
+        //testCurrentQuery(em);
+        testInsertFeedback(em);
     }
 
     private static void testCurrentQuery(EntityManager em) {
@@ -118,5 +120,24 @@ public class Main {
         em.remove(user);
         em.getTransaction().commit();
         em.close();
+    }
+
+    private static void testLocalDateTime(EntityManager em) {
+        Feedback feedback = em.find(Feedback.class, 14);
+        System.out.println(feedback.getCreatedAt());
+        em.close();
+    }
+
+    private static void testInsertFeedback(EntityManager em) {
+        Feedback feedback = new Feedback();
+        feedback.setSender(em.find(User.class, 45));
+        feedback.setReceiver(em.find(User.class, 46));
+        feedback.setQuestion(em.find(Question.class, 1));
+        feedback.setTop(true);
+        feedback.setTip(false);
+        feedback.setCreatedAt(LocalDateTime.now());
+
+        PersistenceManager.INSTANCE.create(em, feedback);
+        testLocalDateTime(em);
     }
 }

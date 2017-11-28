@@ -225,7 +225,7 @@ public class User {
         this.teams = teams;
     }
 
-    public List<Feedback> getSendFeedback() {
+    public Set<Feedback> getSendFeedback() {
         return sendFeedback;
     }
 
