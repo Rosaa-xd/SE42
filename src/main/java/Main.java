@@ -19,7 +19,9 @@ public class Main {
         //testQuerySearchUser(em);
         //testQueryTeam(em);
         //testCurrentQuery(em);
-        testInsertFeedback(em);
+        //testInsertFeedback(em);
+        testHRMandTeamLead(em, true);
+        testHRMandTeamLead(em, false);
     }
 
     private static void testCurrentQuery(EntityManager em) {
@@ -49,7 +51,7 @@ public class Main {
         teamLead.addGoal(goal);
         teamMember.addGoal(goal);
         Team team = new Team();
-        team.setTeamLead(teamLead);
+        //team.setTeamLead(teamLead);
         teamMember.addTeam(team);
         Question question = new Question();
         question.setGoal(goal);
@@ -139,5 +141,28 @@ public class Main {
 
         PersistenceManager.INSTANCE.create(em, feedback);
         testLocalDateTime(em);
+    }
+
+    private static void testHRMandTeamLead(EntityManager em, boolean firstPart) {
+        HRM hrm;
+        TeamLead teamLead;
+        if (firstPart) {
+            teamLead = em.find(TeamLead.class, 101);
+            Team team = new Team();
+            team.setTeamLead(teamLead);
+            team.addTeamMember(em.find(User.class, 97));
+            team.addTeamMember(em.find(User.class, 98));
+            team.addTeamMember(em.find(User.class, 99));
+            PersistenceManager.INSTANCE.create(em, team);
+        }
+        else {
+            hrm = em.find(HRM.class, 100);
+            teamLead = em.find(TeamLead.class, 101);
+            hrm.getAllUsers(em);
+            System.out.println(hrm.users.size());
+            for (Team team : teamLead.teamsLeading) {
+                System.out.println(team.getTeamMembers().size());
+            }
+        }
     }
 }

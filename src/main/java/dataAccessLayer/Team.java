@@ -22,18 +22,18 @@ public class Team {
 
     @ManyToOne
     @JoinColumn (name = "`teamLead_id`")
-    private User teamLead;
+    private TeamLead teamLead;
 
     @ManyToMany (mappedBy = "teams")
     private Set<User> teamMembers = new HashSet<>();
 
     public Team() {}
 
-    public Team(User teamLead) {
+    public Team(TeamLead teamLead) {
         this.teamLead = teamLead;
     }
 
-    public Team(User teamLead, Set<User> teamMembers) {
+    public Team(TeamLead teamLead, Set<User> teamMembers) {
         this.teamLead = teamLead;
         this.teamMembers = teamMembers;
     }
@@ -46,11 +46,11 @@ public class Team {
         this.id = id;
     }
 
-    public User getTeamLead() {
+    public TeamLead getTeamLead() {
         return teamLead;
     }
 
-    public void setTeamLead(User teamLead) {
+    public void setTeamLead(TeamLead teamLead) {
         this.teamLead = teamLead;
         teamLead.addTeamLeading(this);
     }

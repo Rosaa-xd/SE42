@@ -14,6 +14,9 @@ import java.util.Set;
 
 @Entity
 @Table (name = "`User`")
+@DiscriminatorColumn(name = "role")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue(value = "null")
 @NamedQueries({
         //return users that contain the same characters as the string that is given
         //checked
