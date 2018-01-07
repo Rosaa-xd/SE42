@@ -1,6 +1,7 @@
 package api.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Shadowphoenix on 19/12/2017
@@ -8,5 +9,23 @@ import java.util.List;
 public class Goal {
     private Integer id;
     private String goalName;
-    private List<User> users;
+    private Set<User> users;
+
+    // Constructor for creating new goal
+    public Goal(String goalName, User user) {
+        this.goalName = goalName;
+        users = new HashSet<>();
+        users.add(user);
+    }
+
+    // Constructor for retrieving goal
+    public Goal(Integer id, String goalName) {
+        this.id = id;
+        this.goalName = goalName;
+        this.users = new HashSet<>();
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

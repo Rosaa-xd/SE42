@@ -65,8 +65,10 @@ import java.util.Set;
         //return the users thar have been given the most feedback
         //checked
         @NamedQuery(name = "User.getMostReceivedFeedback",
-                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id GROUP BY u.id ORDER BY COUNT(*) DESC")
+                query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id GROUP BY u.id ORDER BY COUNT(*) DESC"),
 
+        @NamedQuery(name = "User.logIn",
+                query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password")
 })
 
 public class User {
@@ -123,6 +125,8 @@ public class User {
 
     @OneToMany (mappedBy = "teamLead")
     Set<Team> teamsLeading = new HashSet<>();
+
+    public static transient EntityManager em;
 
     public User() {}
 
@@ -186,9 +190,17 @@ public class User {
         return email;
     }
 
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
+    public User setEmail(String email) throws Exception {
+        if (this.email != null) {
+            em.getTransaction().begin();
+            this.email = email;
+            em.getTransaction().commit();
+            return this;
+        }
+        else {
+            this.email = email;
+            return this;
+        }
     }
 
     public Boolean getGoldCard() {
@@ -241,6 +253,14 @@ public class User {
         this.receivedFeedback = receivedFeedback;
     }
 
+    public Set<Team> getTeamsLeading() {
+        return teamsLeading;
+    }
+
+    public void setTeamsLeading(Set<Team> teamsLeading) {
+        this.teamsLeading = teamsLeading;
+    }
+
     public void addTeam(Team team) {
         teams.add(team);
         team.addTeamMember(this);
@@ -263,21 +283,23 @@ public class User {
         teamsLeading.add(team);
     }
 
-    public void setFirstName(EntityManager em, String firstName) {
+    public void setFirstName(String firstName, Boolean check) throws Exception {
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         em.getTransaction().begin();
         setFirstName(firstName);
         em.getTransaction().commit();
-    }
-
-    public void setEmail(EntityManager em, String email) {
-        em.getTransaction().begin();
-        setEmail(email);
-        em.getTransaction().commit();
+        em.close();
     }
 
     public void create() throws Exception {
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         PersistenceManager.INSTANCE.create(em, this);
-        em.close();
+    }
+
+    public User login(String email, String password) throws Exception {
+        Query q = em.createNamedQuery("User.logIn", User.class)
+                .setParameter("email", email)
+                .setParameter("password", password);
+        User user = (User) q.getSingleResult();
+        return user;
     }
 }

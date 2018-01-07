@@ -1,5 +1,6 @@
 package api.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,7 +30,7 @@ public class User {
         this.score = 0;
     }
 
-    public User(Integer id, String firstName, String lastName, String password, String email, Boolean goldCard, Integer score, Set<Goal> goals, Set<Team> teams, Set<Team> teamsLeading, Set<Feedback> receivedFeedback, Set<Feedback> sentFeedback) {
+    public User(Integer id, String firstName, String lastName, String password, String email, Boolean goldCard, Integer score) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,11 +38,11 @@ public class User {
         this.email = email;
         this.goldCard = goldCard;
         this.score = score;
-        this.goals = goals;
-        this.teams = teams;
-        this.teamsLeading = teamsLeading;
-        this.receivedFeedback = receivedFeedback;
-        this.sentFeedback = sentFeedback;
+        this.goals = new HashSet<>();
+        this.teams = new HashSet<>();
+        this.teamsLeading = new HashSet<>();
+        this.receivedFeedback = new HashSet<>();
+        this.sentFeedback = new HashSet<>();
     }
 
     public User(Integer id, String firstName, String lastName) {
@@ -86,8 +87,16 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String setEmail(String email) {
+        try {
+            dalUser.setEmail(email);
+            this.email = email;
+            return "Updated email to " + email;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return "Failed updating email to " + email;
+        }
     }
 
     public Boolean getGoldCard() {
@@ -157,6 +166,26 @@ public class User {
                     .setScore(0);
             dalUser.create();
             return new User(firstName, lastName, password, email);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static User login(String email, String password) {
+        try {
+            dalUser = new dataAccessLayer.User();
+            dalUser = dalUser.login(email, password);
+            return new User(
+                    dalUser.getId(),
+                    dalUser.getFirstName(),
+                    dalUser.getLastName(),
+                    dalUser.getPassword(),
+                    dalUser.getEmail(),
+                    dalUser.getGoldCard(),
+                    dalUser.getScore()
+            );
         }
         catch (Exception ex) {
             ex.printStackTrace();

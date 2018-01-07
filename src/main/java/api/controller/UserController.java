@@ -16,4 +16,18 @@ public final class UserController {
             return "I'm sorry, but something went wrong.";
         }
     }
+
+    public static String changeEmail(String email) {
+        return user.setEmail(email);
+    }
+
+    public static String logIn(String email, String password) {
+        user = User.login(email, password);
+        if (user != null) {
+            return user.getFirstName() + " " + user.getLastName() + ", you have successfully logged in.";
+        }
+        else {
+            return "I'm sorry, but I think your credentials are wrong!";
+        }
+    }
 }
