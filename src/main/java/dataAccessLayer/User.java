@@ -274,4 +274,11 @@ public class User {
         setEmail(email);
         em.getTransaction().commit();
     }
+
+    public void create() {
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        PersistenceManager.INSTANCE.create(em, this);
+        em.close();
+        PersistenceManager.INSTANCE.close();
+    }
 }

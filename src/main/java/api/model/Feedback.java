@@ -1,4 +1,4 @@
-package api;
+package api.model;
 
 /**
  * Created by Shadowphoenix on 19/12/2017
