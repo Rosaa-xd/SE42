@@ -19,60 +19,32 @@ public enum PersistenceManager {
         return emFactory.createEntityManager();
     }
 
-    public boolean create(EntityManager entityManager, Object obj) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(obj);
-            entityManager.getTransaction().commit();
-            return true;
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
+    public void create(EntityManager entityManager, Object obj) throws Exception {
+        entityManager.getTransaction().begin();
+        entityManager.persist(obj);
+        entityManager.getTransaction().commit();
     }
 
-    public boolean create(EntityManager entityManager, ArrayList<Object> objects) {
-        try {
-            entityManager.getTransaction().begin();
-            for (Object object : objects) {
-                entityManager.persist(object);
-            }
-            entityManager.getTransaction().commit();
-            return true;
+    public void create(EntityManager entityManager, ArrayList<Object> objects) {
+        entityManager.getTransaction().begin();
+        for (Object object : objects) {
+            entityManager.persist(object);
         }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        entityManager.getTransaction().commit();
     }
 
-    public boolean delete(EntityManager entityManager, Object obj) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.remove(obj);
-            entityManager.getTransaction().commit();
-            return true;
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
+    public void delete(EntityManager entityManager, Object obj) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(obj);
+        entityManager.getTransaction().commit();
     }
 
-    public boolean delete(EntityManager entityManager, ArrayList<Object> objects) {
-        try {
-            entityManager.getTransaction().begin();
-            for (Object object : objects) {
-                entityManager.remove(object);
-            }
-            entityManager.getTransaction().commit();
-            return true;
+    public void delete(EntityManager entityManager, ArrayList<Object> objects) {
+        entityManager.getTransaction().begin();
+        for (Object object : objects) {
+            entityManager.remove(object);
         }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        entityManager.getTransaction().commit();
     }
 
     public void close() {

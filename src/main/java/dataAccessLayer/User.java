@@ -275,10 +275,9 @@ public class User {
         em.getTransaction().commit();
     }
 
-    public void create() {
+    public void create() throws Exception {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         PersistenceManager.INSTANCE.create(em, this);
         em.close();
-        PersistenceManager.INSTANCE.close();
     }
 }

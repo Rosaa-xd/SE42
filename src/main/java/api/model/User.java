@@ -18,7 +18,7 @@ public class User {
     private Set<Team> teamsLeading;
     private Set<Feedback> receivedFeedback;
     private Set<Feedback> sentFeedback;
-    private dataAccessLayer.User dalUser;
+    private static dataAccessLayer.User dalUser;
 
     public User(String firstName, String lastName, String password, String email) {
         this.firstName = firstName;
@@ -27,14 +27,6 @@ public class User {
         this.email = email;
         this.goldCard = false;
         this.score = 0;
-        dalUser = new dataAccessLayer.User();
-        dalUser.setFirstName(firstName)
-                .setLastName(lastName)
-                .setPassword(password)
-                .setEmail(email)
-                .setGoldCard(false)
-                .setScore(0);
-        dalUser.create();
     }
 
     public User(Integer id, String firstName, String lastName, String password, String email, Boolean goldCard, Integer score, Set<Goal> goals, Set<Team> teams, Set<Team> teamsLeading, Set<Feedback> receivedFeedback, Set<Feedback> sentFeedback) {
@@ -155,6 +147,20 @@ public class User {
     }
 
     public static User create(String firstName, String lastName, String password, String email) {
-        return new User(firstName, lastName, password, email);
+        try {
+            dalUser = new dataAccessLayer.User();
+            dalUser.setFirstName(firstName)
+                    .setLastName(lastName)
+                    .setPassword(password)
+                    .setEmail(email)
+                    .setGoldCard(false)
+                    .setScore(0);
+            dalUser.create();
+            return new User(firstName, lastName, password, email);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }
