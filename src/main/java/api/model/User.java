@@ -87,11 +87,11 @@ public class User {
         return email;
     }
 
-    public String setEmail(String email) {
+    public Object setEmail(String email) {
         try {
             dalUser.setEmail(email);
             this.email = email;
-            return "Updated email to " + email;
+            return this;
         }
         catch (Exception ex) {
             ex.printStackTrace();
