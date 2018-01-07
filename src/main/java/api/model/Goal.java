@@ -28,4 +28,19 @@ public class Goal {
     public void addUser(User user) {
         users.add(user);
     }
+
+    public static Goal convert (dataAccessLayer.Goal dalGoal) {
+        Goal goal = new Goal(
+                dalGoal.getId(),
+                dalGoal.getGoalName()
+        );
+        for (dataAccessLayer.User goalUser : dalGoal.getUsers()) {
+            goal.addUser(new User(
+                    goalUser.getId(),
+                    goalUser.getFirstName(),
+                    goalUser.getLastName())
+            );
+        }
+        return goal;
+    }
 }

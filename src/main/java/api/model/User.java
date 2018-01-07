@@ -177,7 +177,7 @@ public class User {
         try {
             dalUser = new dataAccessLayer.User();
             dalUser = dalUser.login(email, password);
-            return new User(
+            User user = new User(
                     dalUser.getId(),
                     dalUser.getFirstName(),
                     dalUser.getLastName(),
@@ -186,6 +186,22 @@ public class User {
                     dalUser.getGoldCard(),
                     dalUser.getScore()
             );
+            for (dataAccessLayer.Goal dalGoal : dalUser.getGoals()) {
+                user.goals.add(Goal.convert(dalGoal));
+            }
+            for (dataAccessLayer.Team dalTeam : dalUser.getTeams()) {
+                user.teams.add(Team.convert(dalTeam));
+            }
+            for (dataAccessLayer.Team dalTeam : dalUser.getTeamsLeading()) {
+                user.teamsLeading.add(Team.convert(dalTeam, user));
+            }
+            for (dataAccessLayer.Feedback dalFeedback : dalUser.getReceivedFeedback()) {
+                user.receivedFeedback.add(Feedback.convert(dalFeedback));
+            }
+            for (dataAccessLayer.Feedback dalFeedback : dalUser.getSendFeedback()) {
+                user.sentFeedback.add(Feedback.convert(dalFeedback));
+            }
+            return user;
         }
         catch (Exception ex) {
             ex.printStackTrace();

@@ -10,4 +10,11 @@ public class Question {
     private Goal goal;
     private String question;
     private QuestionType questionType;
+
+    public Question(Integer id, Goal goal, String question, QuestionType questionType) {
+        this.id = id;
+        this.goal = goal;
+        this.question = question;
+        this.questionType = questionType;
+    }
 }
