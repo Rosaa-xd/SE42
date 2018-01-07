@@ -38,6 +38,70 @@ public class Feedback {
         this.comment = comment;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public Boolean getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(Boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public Boolean getTop() {
+        return top;
+    }
+
+    public void setTop(Boolean top) {
+        this.top = top;
+    }
+
+    public Boolean getTip() {
+        return tip;
+    }
+
+    public void setTip(Boolean tip) {
+        this.tip = tip;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     // Method for retrieving feedback from dal
     public static Feedback convert (dataAccessLayer.Feedback dalFeedback) {
         return new Feedback(
@@ -66,5 +130,9 @@ public class Feedback {
                 dalFeedback.getTip(),
                 dalFeedback.getComment()
         );
+    }
+
+    public static Feedback create (User sender, User receiver, Question question, Boolean anonymous, Boolean top, Boolean tip, String comment) {
+
     }
 }

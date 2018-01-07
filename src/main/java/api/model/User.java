@@ -28,6 +28,11 @@ public class User {
         this.email = email;
         this.goldCard = false;
         this.score = 0;
+        this.goals = new HashSet<>();
+        this.teams = new HashSet<>();
+        this.teamsLeading = new HashSet<>();
+        this.receivedFeedback = new HashSet<>();
+        this.sentFeedback = new HashSet<>();
     }
 
     public User(Integer id, String firstName, String lastName, String password, String email, Boolean goldCard, Integer score) {
