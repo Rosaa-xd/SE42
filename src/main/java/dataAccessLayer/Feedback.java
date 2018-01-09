@@ -40,6 +40,8 @@ public class Feedback {
     @Column (name = "comment")
     private String comment;
 
+    public static transient EntityManager em;
+
     public Feedback() {}
 
     public Feedback(User sender, User receiver, Question question, Boolean anonymous, Boolean top, Boolean tip, String comment) {
@@ -116,5 +118,9 @@ public class Feedback {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public void create() throws Exception {
+        PersistenceManager.INSTANCE.create(em, this);
     }
 }

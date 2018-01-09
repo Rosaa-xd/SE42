@@ -1,3 +1,4 @@
+import api.routing.FeedbackRouting;
 import api.routing.UserRouting;
 import dataAccessLayer.*;
 import spark.Request;
@@ -20,10 +21,12 @@ public class Main {
     public static void main(String[] args) {
         em = PersistenceManager.INSTANCE.getEntityManager();
         User.em = em;
-        new UserRouting();
+        Feedback.em = em;
+        Question.em = em;
         get("/", (req, res) -> "Hello there, the API is running!");
         path("/", () -> {
             path("user", () -> new UserRouting());
+            path("feedback", () -> new FeedbackRouting());
         });
     }
 //

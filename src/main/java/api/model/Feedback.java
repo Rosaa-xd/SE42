@@ -14,6 +14,7 @@ public class Feedback {
     private Boolean top;
     private Boolean tip;
     private String comment;
+    private static dataAccessLayer.Feedback dalFeedback;
 
     // Constructor for creating feedback
     public Feedback(User sender, User receiver, Question question, Boolean anonymous, Boolean top, Boolean tip, String comment) {
@@ -132,7 +133,44 @@ public class Feedback {
         );
     }
 
-    public static Feedback create (User sender, User receiver, Question question, Boolean anonymous, Boolean top, Boolean tip, String comment) {
-
+    public static Feedback create (int sender_id, int receiver_id, int question_id, Boolean anonymous, Boolean top, Boolean tip, String comment) {
+        try {
+            dalFeedback = new dataAccessLayer.Feedback();
+            dalFeedback.setSender(new dataAccessLayer.User().setId(sender_id));
+            dalFeedback.setReceiver(new dataAccessLayer.User().setId(receiver_id));
+            dalFeedback.setQuestion(new dataAccessLayer.Question().setId(question_id));
+            dalFeedback.setAnonymous(anonymous);
+            dalFeedback.setTop(top);
+            dalFeedback.setTip(tip);
+            dalFeedback.setComment(comment);
+            dalFeedback.create();
+            dataAccessLayer.User sender = dataAccessLayer.User.getById(sender_id);
+            dataAccessLayer.User receiver = dataAccessLayer.User.getById(receiver_id);
+            dataAccessLayer.Question question = dataAccessLayer.Question.getById(question_id);
+            return new Feedback(
+                    new User(
+                            sender.getId(),
+                            sender.getFirstName(),
+                            sender.getLastName()
+                    ),
+                    new User(
+                            receiver.getId(),
+                            receiver.getFirstName(),
+                            receiver.getLastName()
+                    ),
+                    new Question(
+                            question.getId(),
+                            question.getQuestion()
+                    ),
+                    anonymous,
+                    top,
+                    tip,
+                    comment
+            );
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }

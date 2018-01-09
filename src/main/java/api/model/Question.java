@@ -17,4 +17,9 @@ public class Question {
         this.question = question;
         this.questionType = questionType;
     }
+
+    public Question(int id, String question) {
+        this.id = id;
+        this.question = question;
+    }
 }

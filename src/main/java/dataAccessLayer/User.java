@@ -302,4 +302,8 @@ public class User {
         User user = (User) q.getSingleResult();
         return user;
     }
+
+    public static User getById(int id) throws Exception {
+        return em.find(User.class, id);
+    }
 }

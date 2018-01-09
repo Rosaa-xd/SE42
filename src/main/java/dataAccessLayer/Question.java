@@ -26,6 +26,8 @@ public class Question {
         nullable = false)
     private QuestionType questionType;
 
+    public static EntityManager em;
+
     public Question() {}
 
     public Question(Goal goal, String question, QuestionType questionType) {
@@ -38,8 +40,9 @@ public class Question {
         return id;
     }
 
-    public void setId(Integer id) {
+    public Question setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public Goal getGoal() {
@@ -64,6 +67,10 @@ public class Question {
 
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
+    }
+
+    public static Question getById(int id) throws Exception {
+        return em.find(Question.class, id);
     }
 }
 
