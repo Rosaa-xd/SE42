@@ -1,6 +1,8 @@
+import api.model.User;
 import api.routing.FeedbackRouting;
 import api.routing.UserRouting;
 import dataAccessLayer.*;
+import org.jasypt.util.text.BasicTextEncryptor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -18,11 +20,15 @@ import static spark.Spark.*;
  */
 public class Main {
     public static EntityManager em;
+    public static BasicTextEncryptor encryptor;
     public static void main(String[] args) {
+        encryptor = new BasicTextEncryptor();
+        encryptor.setPassword("Dit is een sterk wachtwoord voor het SE42 project.");
         em = PersistenceManager.INSTANCE.getEntityManager();
-        User.em = em;
-        Feedback.em = em;
-        Question.em = em;
+        dataAccessLayer.User.em = em;
+        api.model.Feedback.encryptor = encryptor;
+        dataAccessLayer.Feedback.em = em;
+        dataAccessLayer.Question.em = em;
         get("/", (req, res) -> "Hello there, the API is running!");
         path("/", () -> {
             path("user", () -> new UserRouting());

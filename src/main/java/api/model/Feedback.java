@@ -1,6 +1,7 @@
 package api.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
  * Created by Shadowphoenix on 19/12/2017
@@ -15,6 +16,7 @@ public class Feedback {
     private Boolean tip;
     private String comment;
     private static dataAccessLayer.Feedback dalFeedback;
+    public static BasicTextEncryptor encryptor;
 
     // Constructor for creating feedback
     public Feedback(User sender, User receiver, Question question, Boolean anonymous, Boolean top, Boolean tip, String comment) {
@@ -129,7 +131,7 @@ public class Feedback {
                 dalFeedback.getAnonymous(),
                 dalFeedback.getTop(),
                 dalFeedback.getTip(),
-                dalFeedback.getComment()
+                encryptor.decrypt(dalFeedback.getComment())
         );
     }
 
@@ -142,7 +144,7 @@ public class Feedback {
             dalFeedback.setAnonymous(anonymous);
             dalFeedback.setTop(top);
             dalFeedback.setTip(tip);
-            dalFeedback.setComment(comment);
+            dalFeedback.setComment(encryptor.encrypt(comment));
             dalFeedback.create();
             dataAccessLayer.User sender = dataAccessLayer.User.getById(sender_id);
             dataAccessLayer.User receiver = dataAccessLayer.User.getById(receiver_id);
