@@ -68,7 +68,10 @@ import java.util.Set;
                 query = "SELECT u FROM User u INNER JOIN Feedback f ON u.id = f.receiver.id GROUP BY u.id ORDER BY COUNT(*) DESC"),
 
         @NamedQuery(name = "User.logIn",
-                query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password")
+                query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password"),
+
+        @NamedQuery(name = "User.byEmail",
+                query = "SELECT u FROM User u WHERE u.email = :email")
 })
 
 public class User {
@@ -299,6 +302,13 @@ public class User {
         Query q = em.createNamedQuery("User.logIn", User.class)
                 .setParameter("email", email)
                 .setParameter("password", password);
+        User user = (User) q.getSingleResult();
+        return user;
+    }
+
+    public User getByEmail(String email) throws Exception {
+        Query q = em.createNamedQuery("User.byEmail", User.class)
+                .setParameter("email", email);
         User user = (User) q.getSingleResult();
         return user;
     }

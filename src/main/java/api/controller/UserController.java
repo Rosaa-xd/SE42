@@ -1,5 +1,6 @@
 package api.controller;
 
+import api.JsonUtil;
 import api.model.User;
 
 /**
@@ -21,13 +22,37 @@ public final class UserController {
         return user.setEmail(email);
     }
 
-    public static Object logIn(String email, String password) {
+    public static Object logIn(String json) {
+        JsonUtil.parse(json);
+        String email = (String) JsonUtil.jsonObject.get("email");
+        String password = (String) JsonUtil.jsonObject.get("password");
         user = User.login(email, password);
         if (user != null) {
             return user;
         }
         else {
             return "Log in failed. Wrong credentials.";
+        }
+    }
+
+    public static Object byId(String json) {
+        int id = Integer.parseInt(json);
+        user = User.byId(id);
+        if (user != null) {
+            return user;
+        }
+        else {
+            return "Oh halp";
+        }
+    }
+
+    public static Object byEmail(String json) {
+        user = User.byEmail(json);
+        if (user != null) {
+            return user;
+        }
+        else {
+            return "Oh halp";
         }
     }
 }

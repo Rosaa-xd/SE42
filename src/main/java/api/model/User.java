@@ -23,6 +23,10 @@ public class User {
     private Set<Feedback> sentFeedback;
     private static dataAccessLayer.User dalUser;
 
+    public User(Integer id) {
+        this.id = id;
+    }
+
     public User(String firstName, String lastName, String password, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -215,4 +219,57 @@ public class User {
             return null;
         }
     }
+
+    public static User byEmail(String email) {
+        try {
+            dalUser = new dataAccessLayer.User();
+            dalUser = dalUser.getByEmail(email);
+            User user = new User(
+                    dalUser.getId()
+            );
+            return user;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static User byId(int id) {
+        try {
+            dalUser = new dataAccessLayer.User();
+            dalUser = dalUser.getById(id);
+            User user = new User(
+                    dalUser.getId(),
+                    dalUser.getFirstName(),
+                    dalUser.getLastName(),
+                    dalUser.getPassword(),
+                    dalUser.getEmail(),
+                    dalUser.getGoldCard(),
+                    dalUser.getScore()
+            );
+            for (dataAccessLayer.Goal dalGoal : dalUser.getGoals()) {
+                user.goals.add(Goal.convert(dalGoal));
+            }
+            for (dataAccessLayer.Team dalTeam : dalUser.getTeams()) {
+                user.teams.add(Team.convert(dalTeam));
+            }
+            for (dataAccessLayer.Team dalTeam : dalUser.getTeamsLeading()) {
+                user.teamsLeading.add(Team.convert(dalTeam, user));
+            }
+            for (dataAccessLayer.Feedback dalFeedback : dalUser.getReceivedFeedback()) {
+                user.receivedFeedback.add(Feedback.convert(dalFeedback));
+            }
+            for (dataAccessLayer.Feedback dalFeedback : dalUser.getSendFeedback()) {
+                user.sentFeedback.add(Feedback.convert(dalFeedback));
+            }
+            return user;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+
 }
