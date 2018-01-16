@@ -125,8 +125,7 @@ public class Feedback {
                                 dalFeedback.getQuestion().getGoal().getId(),
                                 dalFeedback.getQuestion().getGoal().getGoalName()
                         ),
-                        dalFeedback.getQuestion().getQuestion(),
-                        dalFeedback.getQuestion().getQuestionType()
+                        dalFeedback.getQuestion().getQuestion()
                 ),
                 dalFeedback.getAnonymous(),
                 dalFeedback.getTop(),

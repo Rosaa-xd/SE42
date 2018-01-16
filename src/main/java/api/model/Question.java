@@ -18,6 +18,12 @@ public class Question {
         this.questionType = questionType;
     }
 
+    public Question(Integer id, Goal goal, String question) {
+        this.id = id;
+        this.goal = goal;
+        this.question = question;
+    }
+
     public Question(int id, String question) {
         this.id = id;
         this.question = question;
