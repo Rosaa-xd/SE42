@@ -22,7 +22,6 @@ public class Main {
     public static EntityManager em;
     public static BasicTextEncryptor encryptor;
     public static void main(String[] args) {
-        enableCORS("", "", "");
         encryptor = new BasicTextEncryptor();
         encryptor.setPassword("Dit is een sterk wachtwoord voor het SE42 project.");
         em = PersistenceManager.INSTANCE.getEntityManager();
@@ -30,6 +29,7 @@ public class Main {
         api.model.Feedback.encryptor = encryptor;
         dataAccessLayer.Feedback.em = em;
         dataAccessLayer.Question.em = em;
+        enableCORS();
         get("/", (req, res) -> "Hello there, the API is running!");
         path("/", () -> {
             path("user", () -> new UserRouting());
@@ -37,30 +37,28 @@ public class Main {
         });
     }
 
-    private static void enableCORS(final String origin, final String methods, final String headers) {
+    private static void enableCORS() {
+        options("/*",
+                (request, response) -> {
 
-        options("/*", (request, response) -> {
+                    String accessControlRequestHeaders = request
+                            .headers("Access-Control-Request-Headers");
+                    if (accessControlRequestHeaders != null) {
+                        response.header("Access-Control-Allow-Headers",
+                                accessControlRequestHeaders);
+                    }
 
-            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
-            if (accessControlRequestHeaders != null) {
-                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
-            }
+                    String accessControlRequestMethod = request
+                            .headers("Access-Control-Request-Method");
+                    if (accessControlRequestMethod != null) {
+                        response.header("Access-Control-Allow-Methods",
+                                accessControlRequestMethod);
+                    }
 
-            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
-            if (accessControlRequestMethod != null) {
-                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
-            }
+                    return "OK";
+                });
 
-            return "OK";
-        });
-
-        before((request, response) -> {
-            response.header("Access-Control-Allow-Origin", origin);
-            response.header("Access-Control-Request-Method", methods);
-            response.header("Access-Control-Allow-Headers", headers);
-            // Note: this may or may not be necessary in your particular application
-            response.type("application/json");
-        });
+        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
     }
 
 
